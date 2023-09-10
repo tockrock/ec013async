@@ -12,15 +12,18 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   func next() {
+    numberVendor.selectRandomNumber()
   }
 }
 
 extension EntryController: VendorDelegate {
   func vendorWillSelect(_ vendor: DelegatingVendor) {
-    <#code#>
+    isUpdating = true
   }
   
   func vendor(_ vendor: DelegatingVendor, didSelect number: Int) {
-    <#code#>
+    entry = Entry(imageName: number.description + suffix)
+    delta = vendor.delta.description
+    isUpdating = false
   }
 }
