@@ -18,5 +18,7 @@ extension DelegateWrapper: VendorDelegate {
   }
   
   func vendor(_ vendor: DelegatingVendor, didSelect number: Int) {
+    numberContinuation?.resume(returning: number)
+    numberContinuation = nil
   }
 }
