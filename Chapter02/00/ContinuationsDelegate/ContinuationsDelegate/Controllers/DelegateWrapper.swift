@@ -6,7 +6,7 @@ class DelegateWrapper {
 
 extension DelegateWrapper: VendorDelegate {
   func randomEntryNumber() async -> Int {
-    0
+    numberVendor.selectRandomNumber()
   }
   
   func vendorWillSelect(_ vendor: DelegatingVendor) {
