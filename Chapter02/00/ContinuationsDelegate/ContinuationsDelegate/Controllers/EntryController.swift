@@ -6,10 +6,15 @@ class EntryController: ObservableObject {
   @Published private(set) var isUpdating = false
   @Published private(set) var delta = "..."
   let suffix = ".circle"
+  private let wrapper = DelegateWrapper()
 }
 
 extension EntryController {
   func next() {
+    Task {
+      let number = await wrapper.randomEntryNumber()
+      entry = Entry(imageName: number.description + suffix)
+    }
   }
 }
 
@@ -19,7 +24,6 @@ extension EntryController {
   }
   
   func vendor(didSelect number: Int) {
-    entry = Entry(imageName: number.description + suffix)
 //    delta = vendor.delta.description
     isUpdating = false
   }
