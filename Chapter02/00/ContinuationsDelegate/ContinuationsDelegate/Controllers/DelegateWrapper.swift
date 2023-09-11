@@ -30,7 +30,11 @@ extension DelegateWrapper: VendorDelegate {
   }
   
   func vendor(_ vendor: DelegatingVendor, didSelect number: Int) {
-    receiveContinuation?.resume(returning: (number, vendor.delta))
+    if number.isMultiple(of: 5) {
+      receiveContinuation?.resume(throwing: MultipleOfFiveError(number: number))
+    } else {
+      receiveContinuation?.resume(returning: (number, vendor.delta))
+    }
     receiveContinuation = nil
   }
 }
