@@ -12,19 +12,12 @@ class EntryController: ObservableObject {
 extension EntryController {
   func next() {
     Task {
-      let number = await wrapper.randomEntryNumber()
+      await wrapper.requestRandomEntryNumber()
+      isUpdating = true
+      let (number, dalta) = await wrapper.receiveRandomEntryNumber()
       entry = Entry(imageName: number.description + suffix)
+      self.delta = delta.description
+      isUpdating = false
     }
-  }
-}
-
-extension EntryController {
-  func vendorWillSelect() {
-    isUpdating = true
-  }
-  
-  func vendor(didSelect number: Int) {
-//    delta = vendor.delta.description
-    isUpdating = false
   }
 }
