@@ -3,7 +3,7 @@ import DelegateSupport
 class DelegateWrapper {
   lazy private var numberVendor = DelegatingVendor(delegate: self)
   var requestContinuation: UnsafeContinuation<Void, Never>?
-  var receiveContinuation: CheckedContinuation<(Int, Int), Never>?
+  var receiveContinuation: UnsafeContinuation<(Int, Int), Never>?
 }
 
 extension DelegateWrapper {
@@ -17,7 +17,7 @@ extension DelegateWrapper {
   
   @MainActor
   func receiveRandomEntryNumber() async -> (number: Int, delta: Int) {
-    await withCheckedContinuation { continuation in
+    await withUnsafeContinuation { continuation in
       receiveContinuation = continuation
     }
   }
