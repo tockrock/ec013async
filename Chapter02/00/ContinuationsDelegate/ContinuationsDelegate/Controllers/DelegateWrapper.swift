@@ -3,7 +3,7 @@ import DelegateSupport
 class DelegateWrapper {
   lazy private var numberVendor = DelegatingVendor(delegate: self)
   var requestContinuation: CheckedContinuation<Void, Never>?
-  var receiveContinuation: CheckedContinuation<(Int, Int), Never>?
+  var receiveContinuation: CheckedContinuation<(Int, Int), Error>?
 }
 
 extension DelegateWrapper {
