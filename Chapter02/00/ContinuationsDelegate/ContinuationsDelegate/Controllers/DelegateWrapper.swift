@@ -16,8 +16,8 @@ extension DelegateWrapper {
   }
   
   @MainActor
-  func receiveRandomEntryNumber() async -> (number: Int, delta: Int) {
-    await withCheckedContinuation { continuation in
+  func receiveRandomEntryNumber() async throws -> (number: Int, delta: Int) {
+    try await withCheckedThrowingContinuation { continuation in
       receiveContinuation = continuation
     }
   }
