@@ -14,7 +14,7 @@ extension EntryController {
     Task {
       await wrapper.requestRandomEntryNumber()
       isUpdating = true
-      let (number, dalta) = await wrapper.receiveRandomEntryNumber()
+      let (number, delta) = await wrapper.receiveRandomEntryNumber()
       entry = Entry(imageName: number.description + suffix)
       self.delta = delta.description
       isUpdating = false
