@@ -53,7 +53,9 @@
 				62E203982946548500E5B488 /* Products */,
 				62E203B62946569B00E5B488 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		62E203982946548500E5B488 /* Products */ = {
 			isa = PBXGroup;
