@@ -3,6 +3,7 @@ class ClosureBasedVendor {
 }
 
 extension ClosureBasedVendor {
+  @MainActor
   func selectRandomNumber(with completion: @escaping (Int, Bool) -> Void) {
     Task {
       let numberBeforeChange = number
