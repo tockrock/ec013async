@@ -13,4 +13,8 @@ extension ClosureBasedVendor {
       completion(number, isGreater)
     }
   }
+  
+  func selectRandomNumber() async -> (Int, Bool) {
+    
+  }
 }
