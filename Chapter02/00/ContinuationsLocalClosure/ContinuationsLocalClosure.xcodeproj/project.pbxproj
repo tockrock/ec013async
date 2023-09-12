@@ -46,7 +46,9 @@
 				6206729A29452BFE00357998 /* ContinuationsLocalClosure */,
 				6206729929452BFE00357998 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		6206729929452BFE00357998 /* Products */ = {
 			isa = PBXGroup;
