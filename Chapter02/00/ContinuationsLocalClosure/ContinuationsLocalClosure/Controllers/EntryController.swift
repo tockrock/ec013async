@@ -12,7 +12,8 @@ class EntryController: ObservableObject {
 extension EntryController {
   func next() {
     isUpdating = true
-    vendor.selectRandomNumber { number, isGreater in
+    Task {
+      let (number, isGreater) = await vendor.selectRandomNumber()
       self.entry = Entry(imageName: number.description + self.suffix)
       self.delta = isGreater ? "+" : "-"
       self.isUpdating = false

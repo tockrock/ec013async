@@ -3,6 +3,7 @@ class ClosureBasedVendor {
 }
 
 extension ClosureBasedVendor {
+  @available(*, deprecated, message: "Use async version of selectRandomNumber()")
   @MainActor
   func selectRandomNumber(with completion: @escaping (Int, Bool) -> Void) {
     Task {
