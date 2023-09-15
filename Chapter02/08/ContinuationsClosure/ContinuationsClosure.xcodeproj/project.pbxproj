@@ -30,7 +30,7 @@
 		62E203B0294655E500E5B488 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 		62E203B22946562800E5B488 /* ClosureWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureWrapper.swift; sourceTree = "<group>"; };
 		62E203B52946567A00E5B488 /* ClosureSupport */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClosureSupport; path = ../../ClosureSupport; sourceTree = "<group>"; };
-		62E203B9294657B000E5B488 /* ToolDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolDemo.swift; sourceTree = "<group>"; };
+		62E203B9294657B000E5B488 /* ToolDemo.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ToolDemo.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
