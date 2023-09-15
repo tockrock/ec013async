@@ -11,7 +11,6 @@ extension ToolDemo {
     }
   }
   
-  
   func demo1() async -> (Int, Bool) {
     let numberBeforeChange = number
     try? await Task.sleep(for: .seconds(0.5))
@@ -23,14 +22,20 @@ extension ToolDemo {
 }
 
 extension ToolDemo {
+  @available(*, deprecated, message: "use the async version of demo2()")
   func demo2(completion: @escaping (Int, Bool) -> Void) {
     Task {
-      let numberBeforeChange = number
-      try? await Task.sleep(for: .seconds(0.5))
-      number = Int.random(in: 1...50)
-      let isGreater = number > numberBeforeChange
+      let (number, isGreater) = await demo2()
       completion(number, isGreater)
     }
+  }
+  
+  func demo2() async -> (Int, Bool) {
+    let numberBeforeChange = number
+    try? await Task.sleep(for: .seconds(0.5))
+    number = Int.random(in: 1...50)
+    let isGreater = number > numberBeforeChange
+    return (number, isGreater)
   }
 }
 
