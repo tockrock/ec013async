@@ -50,7 +50,9 @@
 				62E203C62947A07E00E5B488 /* ContinuationsURLSession */,
 				62E203C52947A07E00E5B488 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		62E203C52947A07E00E5B488 /* Products */ = {
 			isa = PBXGroup;
