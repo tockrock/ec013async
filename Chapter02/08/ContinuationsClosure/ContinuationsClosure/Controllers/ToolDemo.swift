@@ -40,12 +40,12 @@ extension ToolDemo {
 }
 
 extension ToolDemo {
-  func demo3(completion: @escaping (Int, Bool) -> Void) {
+  func demo3() async -> (Int, Bool) {
     let numberBeforeChange = number
-    //      try? await Task.sleep(for: .seconds(0.5))
+    try? await Task.sleep(for: .seconds(0.5))
     number = Int.random(in: 1...50)
     let isGreater = number > numberBeforeChange
-    completion(number, isGreater)
+    return (number, isGreater)
   }
 }
 
