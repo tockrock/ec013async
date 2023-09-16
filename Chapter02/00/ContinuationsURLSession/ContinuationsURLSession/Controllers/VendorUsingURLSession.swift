@@ -19,4 +19,24 @@ extension VendorUsingURLSession {
       }
       .resume()
   }
+  
+  func randomNumber() async throws -> Int {
+    try await withCheckedThrowingContinuation { continuation in
+      URLSession.shared
+        .dataTask(with: URLConstants.intURL) { data, _, error in
+          if let data,
+             let string = String(data: data, encoding: .utf8),
+             let number = Int(string) {
+            continuation.resume(returning: number)
+          } else {
+            guard let error else {
+              continuation.resume(throwing: UnexpectedDataFromServerError())
+              return
+            }
+            continuation.resume(throwing: error)
+          }
+        }
+        .resume()
+    }
+  }
 }

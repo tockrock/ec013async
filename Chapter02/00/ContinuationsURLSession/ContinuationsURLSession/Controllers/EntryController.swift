@@ -11,11 +11,11 @@ class EntryController: ObservableObject {
 extension EntryController {
   func next() {
     isUpdating = true
-    vendor.selectRandomNumber { number, error in
-      if let number {
+    Task {
+      do {
+        let number = try await vendor.randomNumber()
         self.entry = Entry(imageName: number.description + self.suffix)
-      } else {
-        print(error?.localizedDescription ?? "error is nil")
+      } catch {
         self.entry = errorEntry()
       }
       self.isUpdating = false
