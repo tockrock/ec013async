@@ -11,8 +11,13 @@ class EntryController: ObservableObject {
 extension EntryController {
   func next() {
     isUpdating = true
-    vendor.selectRandomNumber { number in
-      self.entry = Entry(imageName: number.description + self.suffix)
+    vendor.selectRandomNumber { number, error in
+      if let number {
+        self.entry = Entry(imageName: number.description + self.suffix)
+      } else {
+        print(error?.localizedDescription ?? "error is nil")
+        self.entry = errorEntry()
+      }
       self.isUpdating = false
     }
   }
