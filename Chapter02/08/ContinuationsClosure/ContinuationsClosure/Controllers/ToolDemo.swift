@@ -50,6 +50,7 @@ extension ToolDemo {
 }
 
 extension ToolDemo {
+  @available(*, renamed: "demo4()")
   func demo4(completion: @escaping (Int, Bool) -> ()) {
     Task {
       let numberBeforeChange = number
@@ -59,4 +60,13 @@ extension ToolDemo {
       completion(number, isGreater)
     }
   }
+  
+  func demo4() async -> (Int, Bool) {
+    return await withCheckedContinuation { continuation in
+      demo4() { number, isGreater in
+        continuation.resume(returning: (number, isGreater))
+      }
+    }
+  }
+  
 }
