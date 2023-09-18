@@ -23,8 +23,9 @@ extension EntryController {
   }
   
   private func listenForNumbers() async {
-    for await _ in receiver.notifications {
+    for await notification in receiver.notifications {
 //      entries.append(Entry(number: number))
+      print(notification)
     }
   }
 }
