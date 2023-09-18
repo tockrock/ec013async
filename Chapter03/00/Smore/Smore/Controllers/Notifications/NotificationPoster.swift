@@ -2,7 +2,15 @@ import Foundation
 
 class NotificationPoster {
   static let shared = NotificationPoster()
-  private var count = 0 
+  private var count = 0 {
+    didset {
+      NotificationCenter
+        .default
+        .post(name: NextNumberNotification.name,
+              object: nil,
+              userInfo: [NextNumberNotification.numberKey: count])
+    }
+  }
   private init() {}
   
   func selectNextNumber() {

@@ -7,5 +7,6 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   func nextEntry() {
+    NotificationPoster.shared.selectNextNumber()
   }
 }
