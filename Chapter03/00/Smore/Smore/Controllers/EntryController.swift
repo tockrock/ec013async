@@ -6,8 +6,16 @@ class EntryController: ObservableObject {
   private let receiver = NotificationReceiver()
   
   init() {
-    receiver.receiveNumbers { number in
-      self.entries.append(Entry(number: number))
+    Task {
+      await listenForNumbers()
+    }
+  }
+}
+
+extension EntryController {
+  private func listenForNumbers() async {
+    for await number in receiver.numbers {
+      entries.append(Entry(number: number))
     }
   }
 }
