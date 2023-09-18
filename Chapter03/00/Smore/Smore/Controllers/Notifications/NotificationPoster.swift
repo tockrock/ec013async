@@ -3,7 +3,7 @@ import Foundation
 class NotificationPoster {
   static let shared = NotificationPoster()
   private var count = 0 {
-    didset {
+    didSet {
       NotificationCenter
         .default
         .post(name: NextNumberNotification.name,
