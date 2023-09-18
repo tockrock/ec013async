@@ -80,7 +80,9 @@
 				62DB2385295630B70013CECC /* Smore */,
 				62DB2384295630B70013CECC /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		62DB2384295630B70013CECC /* Products */ = {
 			isa = PBXGroup;
