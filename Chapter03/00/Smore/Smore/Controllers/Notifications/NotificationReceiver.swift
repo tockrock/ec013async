@@ -1,7 +1,7 @@
 import Foundation
 
 class NotificationReceiver {
-  func registerForNotification() {
+  func receiveNumbers(with completion: @escaping (Int) -> Void) {
     NotificationCenter
       .default
       .addObserver(forName: NextNumberNotification.name,
@@ -9,7 +9,7 @@ class NotificationReceiver {
                    queue: nil) { notification in
         if let userInfo = notification.userInfo,
            let number = userInfo[NextNumberNotification.numberKey] as? Int {
-          print("received", number)
+          completion(number)
         }
       }
   }

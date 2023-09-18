@@ -6,7 +6,9 @@ class EntryController: ObservableObject {
   private let receiver = NotificationReceiver()
   
   init() {
-    receiver.registerForNotification()
+    receiver.receiveNumbers { number in
+      self.entries.append(Entry(number: number))
+    }
   }
 }
 
