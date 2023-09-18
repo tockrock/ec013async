@@ -13,6 +13,15 @@ class EntryController: ObservableObject {
 }
 
 extension EntryController {
+  private func example() {
+    let ints = [1, 2, 3, 4]
+    var iterator = ints.makeIterator()
+    
+    while let int = iterator.next() {
+      print(int)
+    }
+  }
+  
   private func listenForNumbers() async {
     for await _ in receiver.notifications {
 //      entries.append(Entry(number: number))
