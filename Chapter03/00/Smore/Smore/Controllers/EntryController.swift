@@ -14,8 +14,8 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   private func listenForNumbers() async {
-    for await number in receiver.numbers {
-      entries.append(Entry(number: number))
+    for await _ in receiver.notifications {
+//      entries.append(Entry(number: number))
     }
   }
 }
