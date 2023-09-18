@@ -1,6 +1,7 @@
 import Combine
 
 class EntryController: ObservableObject {
+  @MainActor
   @Published private(set) var entries: [Entry] = []
   private let receiver = NotificationReceiver()
   
@@ -23,7 +24,9 @@ extension EntryController {
   
   private func listenForNumbers() async {
     for await notification in receiver.notifications {
-//      entries.append(Entry(number: number))
+      await MainActor.run {
+        entries.append(Entry(number: Int.random(in: 1...50)))
+      }
       print(notification)
     }
   }
