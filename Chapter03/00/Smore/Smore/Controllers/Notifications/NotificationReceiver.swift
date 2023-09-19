@@ -4,13 +4,13 @@ class NotificationReceiver {
   let notifications = NotificationCenter.default
     .notifications(named: NextNumberNotification.name)
   
-  var numbers: AsyncStream<Int> {
-    AsyncStream(Int.self) { contiunation in
+  var entries: AsyncStream<Entry> {
+    AsyncStream(Entry.self) { contiunation in
       Task {
         for await notification in notifications {
           if let userInfo = notification.userInfo,
              let number = userInfo[NextNumberNotification.numberKey] as? Int {
-            contiunation.yield(number)
+            contiunation.yield(Entry(number: number))
           }
         }
       }

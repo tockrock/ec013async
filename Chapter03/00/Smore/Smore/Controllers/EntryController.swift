@@ -7,7 +7,7 @@ class EntryController: ObservableObject {
   
   init() {
     Task {
-      await listenForNumbers()
+      await listenForEntries()
     }
   }
 }
@@ -22,9 +22,9 @@ extension EntryController {
     }
   }
   
-  private func listenForNumbers() async {
-    for await number in receiver.numbers {
-      entries.append(Entry(number: number))
+  private func listenForEntries() async {
+    for await entry in receiver.entries {
+      entries.append(entry)
     }
   }
 }
