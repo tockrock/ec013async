@@ -3,7 +3,7 @@ import Combine
 @MainActor
 class EntryController: ObservableObject {
   @Published private(set) var entries: [Entry] = []
-  private let receiver = NotificationReceiver()
+  private let receiver = CombineReceiver()
   
   init() {
     Task {
@@ -31,6 +31,6 @@ extension EntryController {
 
 extension EntryController {
   func nextEntry() {
-    NotificationPoster.shared.selectNextNumber()
+    IntPublisher.shared.selectNextNumber()
   }
 }

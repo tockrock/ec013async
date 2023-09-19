@@ -1,16 +1,11 @@
 import Foundation
 
 class CombineReceiver {
-  static let shared = CombineReceiver()
-  private init() {}
-  
   let entries
-  = NotificationCenter.default
-    .notifications(named: NextNumberNotification.name)
-    .compactMap(\.userInfo)
-    .compactMap { dictionary in
-      dictionary[NextNumberNotification.numberKey] as? Int
-    }
+  = IntPublisher.shared
+    .$count
+    .values
+    .dropFirst()
     .map {number in
       Entry(number: number)
     }
