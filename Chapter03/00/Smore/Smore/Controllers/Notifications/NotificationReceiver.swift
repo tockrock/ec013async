@@ -7,11 +7,15 @@ class NotificationReceiver {
   var entries: AsyncStream<Entry> {
     AsyncStream(Entry.self) { contiunation in
       Task {
-        for await notification in notifications {
-          if let userInfo = notification.userInfo,
-             let number = userInfo[NextNumberNotification.numberKey] as? Int {
-            contiunation.yield(Entry(number: number))
+        let asyncSequence = notifications
+          .compactMap(\.userInfo)
+          .compactMap { dictionary in
+            dictionary[NextNumberNotification.numberKey] as? Int
           }
+          .map { number in Entry(number: number) }
+        
+        for await entry in asyncSequence {
+          contiunation.yield(entry)
         }
       }
     }
