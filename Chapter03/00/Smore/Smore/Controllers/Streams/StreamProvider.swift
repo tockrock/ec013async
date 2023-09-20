@@ -4,6 +4,9 @@ class StreamProvider {
   
   private(set) var count = 0 {
     didSet {
+      if 7 < count {
+        continuation?.finish()
+      }
       continuation?.yield(Entry(number: count))
     }
   }
@@ -17,6 +20,9 @@ extension StreamProvider {
   var entryStream: AsyncStream<Entry> {
     AsyncStream(Entry.self) { continuation in
       self.continuation = continuation
+      continuation.onTermination = { @Sendable termination in
+        print("Stream status: \(termination)")
+      }
     }
   }
 }
