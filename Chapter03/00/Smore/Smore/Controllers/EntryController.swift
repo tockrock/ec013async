@@ -31,6 +31,6 @@ extension EntryController {
 
 extension EntryController {
   func nextEntry() {
-    IntPublisher.shared.selectNextNumber()
+    StreamProvider.shared.selectNextNumber()
   }
 }
