@@ -3,7 +3,6 @@ import Combine
 @MainActor
 class EntryController: ObservableObject {
   @Published private(set) var entries: [Entry] = []
-  private let receiver = CombineReceiver()
   
   init() {
     Task {
@@ -23,7 +22,7 @@ extension EntryController {
   }
   
   private func listenForEntries() async {
-    for await entry in receiver.entries {
+    for await entry in StreamProvider.shared.entryStream {
       entries.append(entry)
     }
   }
