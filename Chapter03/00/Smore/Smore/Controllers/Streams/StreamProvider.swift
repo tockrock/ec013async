@@ -1,11 +1,11 @@
 class StreamProvider {
   static let shared = StreamProvider()
-  private var continuation: AsyncStream<Entry>.Continuation?
+  private var continuation: AsyncThrowingStream<Entry, Error>.Continuation?
   
   private(set) var count = 0 {
     didSet {
-      if 7 < count {
-        continuation?.finish()
+      if count.isMultiple(of: 5) {
+        continuation?.yield(with: .failure(MultipleOfFiveError(number: count)))
       }
       continuation?.yield(Entry(number: count))
     }
@@ -17,8 +17,8 @@ class StreamProvider {
 }
 
 extension StreamProvider {
-  var entryStream: AsyncStream<Entry> {
-    AsyncStream(Entry.self) { continuation in
+  var entryStream: AsyncThrowingStream<Entry, Error> {
+    AsyncThrowingStream(Entry.self) { continuation in
       self.continuation = continuation
       continuation.onTermination = { @Sendable termination in
         print("Stream status: \(termination)")

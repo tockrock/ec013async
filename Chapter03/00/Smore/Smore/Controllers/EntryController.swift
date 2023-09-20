@@ -22,8 +22,12 @@ extension EntryController {
   }
   
   private func listenForEntries() async {
-    for await entry in StreamProvider.shared.entryStream {
-      entries.append(entry)
+    do {
+      for try await entry in StreamProvider.shared.entryStream {
+        entries.append(entry)
+      }
+    } catch {
+      entries.append(errorEntry())
     }
   }
 }
