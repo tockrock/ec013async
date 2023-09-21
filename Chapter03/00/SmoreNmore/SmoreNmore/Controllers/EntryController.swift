@@ -11,22 +11,14 @@ class EntryController: ObservableObject {
   
   init() {
     Task {
-      await listenForEntries()
-    }
-    Task {
       await listenForEntryPairs()
     }
   }
 }
 
 extension EntryController {
-  private func listenForEntries() async {
-    for await entry in plain.entries {
-      entries.append(entry)
-    }
-  }
   private func listenForEntryPairs() async {
-    for await pair in zip(plain.entries, filled.entries) {
+    for await pair in combineLatest(plain.entries, filled.entries) {
       entryPairs.append(EntryPair(pair))
     }
   }
