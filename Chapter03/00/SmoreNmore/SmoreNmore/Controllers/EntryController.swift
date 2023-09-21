@@ -11,6 +11,9 @@ class EntryController: ObservableObject {
   
   init() {
     Task {
+      await listenForEntries()
+    }
+    Task {
       await listenForEntryPairs()
     }
   }

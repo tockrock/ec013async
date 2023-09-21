@@ -16,6 +16,9 @@ extension AutoEntryVendor {
   var entries: AsyncStream<Entry> {
     AsyncStream(Entry.self) { continuation in
       let timer = AsyncTimerSequence.repeating(every: .seconds(delay))
+      continuation.onTermination = { termination in
+        print("Stopped (is filled =", self.isFilled, ")", termination)
+      }
       Task {
         for await _ in timer {
           if 20 > count {
