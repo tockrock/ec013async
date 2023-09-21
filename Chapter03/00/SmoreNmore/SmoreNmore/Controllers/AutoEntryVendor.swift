@@ -1,3 +1,5 @@
+import AsyncAlgorithms
+
 class AutoEntryVendor {
   let delay: Double
   let isFilled: Bool
@@ -13,13 +15,16 @@ class AutoEntryVendor {
 extension AutoEntryVendor {
   var entries: AsyncStream<Entry> {
     AsyncStream(Entry.self) { continuation in
+      let timer = AsyncTimerSequence.repeating(every: .seconds(delay))
       Task {
-        while 10 > count {
-          count += 1
-          try? await Task.sleep(for: .seconds(delay))
-          continuation.yield(Entry(number: count, isFilled: isFilled))
+        for await _ in timer {
+          if 20 > count {
+            count += 1
+            continuation.yield(Entry(number: count, isFilled: isFilled))
+          } else {
+            continuation.finish()
+          }
         }
-        continuation.finish()
       }
     }
   }
