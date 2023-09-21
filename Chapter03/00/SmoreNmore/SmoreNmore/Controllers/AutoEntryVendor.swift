@@ -10,4 +10,16 @@ class AutoEntryVendor {
   }
 }
 
-
+extension AutoEntryVendor {
+  var entries: AsyncStream<Entry> {
+    AsyncStream(Entry.self) { continuation in
+      Task {
+        while 10 > count {
+          count += 1
+          try? await Task.sleep(for: .seconds(delay))
+          continuation.yield(Entry(number: count, isFilled: isFilled))
+        }
+      }
+    }
+  }
+}
