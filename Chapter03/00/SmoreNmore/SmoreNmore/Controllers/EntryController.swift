@@ -18,7 +18,8 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   private func listenForEntries() async {
-    for await entry in merge(plain.entries, filled.entries) {
+    for await entry in merge(plain.entries, filled.entries
+                                            .throttle(for: .seconds(2.0))) {
       entries.append(entry)
     }
   }
