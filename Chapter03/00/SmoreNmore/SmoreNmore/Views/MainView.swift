@@ -9,7 +9,7 @@ extension MainView: View {
     NavigationStack {
       VStack {
         EntryGrid(entries: controller.entries)
-//        EntryPairGrid(entryPairs: controller.entryPairs)
+        EntryPairGrid(entryPairs: controller.entryPairs)
       }
       .padding()
       .navigationTitle("Entries")

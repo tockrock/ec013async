@@ -11,16 +11,20 @@ class EntryController: ObservableObject {
   
   init() {
     Task {
-      await listenForEntries()
+      await listenForEntryPairs()
     }
   }
 }
 
 extension EntryController {
   private func listenForEntries() async {
-    for await entry in merge(plain.entries, filled.entries
-                                            .throttle(for: .seconds(2.0))) {
+    for await entry in plain.entries {
       entries.append(entry)
+    }
+  }
+  private func listenForEntryPairs() async {
+    for await pair in zip(plain.entries, filled.entries) {
+      entryPairs.append(EntryPair(pair))
     }
   }
 }
