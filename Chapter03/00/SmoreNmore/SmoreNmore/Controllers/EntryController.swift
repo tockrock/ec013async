@@ -1,3 +1,4 @@
+import AsyncAlgorithms
 import Combine
 
 @MainActor
@@ -17,7 +18,7 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   private func listenForEntries() async {
-    for await entry in plain.entries {
+    for await entry in merge(plain.entries, filled.entries) {
       entries.append(entry)
     }
   }
