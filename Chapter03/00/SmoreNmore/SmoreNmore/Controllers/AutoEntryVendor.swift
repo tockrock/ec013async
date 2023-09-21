@@ -19,6 +19,7 @@ extension AutoEntryVendor {
           try? await Task.sleep(for: .seconds(delay))
           continuation.yield(Entry(number: count, isFilled: isFilled))
         }
+        continuation.finish()
       }
     }
   }
