@@ -8,12 +8,14 @@ class EntryController: ObservableObject {
   
   private let plain = NumberVendor(delay: 2.0)
   private let filled = NumberVendor(delay: 1.5)
+  
+  private var nextTask: Task<Void, Never>?
 }
 
 extension EntryController {
   func nextPair() {
     clear()
-    Task {
+    nextTask = Task {
       async let plainNumber = plain.randomNumber()
       async let filledNumber = filled.randomNumber()
 
