@@ -12,6 +12,7 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   func nextPair() {
+    clear()
     Task {
       let plainNumber = await plain.randomNumber()
       plainEntry = Entry(number: plainNumber)
@@ -23,3 +24,10 @@ extension EntryController {
   }
 }
 
+extension EntryController {
+  private func clear() {
+    plainEntry = nil
+    filledEntry = nil
+    comparison = nil
+  }
+}
