@@ -1,5 +1,6 @@
 import Combine
 
+@MainActor
 class EntryController: ObservableObject {
   @Published private(set) var plainEntry: Entry?
   @Published private(set) var filledEntry: Entry?
@@ -11,6 +12,10 @@ class EntryController: ObservableObject {
 
 extension EntryController {
   func nextPair() {
+    Task {
+      let plainNumber = await plain.randomNumber()
+      plainEntry = Entry(number: plainNumber)
+    }
   }
 }
 
