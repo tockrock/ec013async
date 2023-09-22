@@ -2,7 +2,12 @@ struct NumberVendor {
   let delay: Double
   
   func randomNumber() async -> Int {
-    try? await Task.sleep(for: .seconds(delay))
+    do {
+      try await Task.sleep(for: .seconds(delay))
+    } catch {
+      print("\(delay) task \(error)")
+      return 0
+    }
     return Int.random(in: 1...50)
   }
 }

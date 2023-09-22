@@ -28,6 +28,7 @@ extension EntryController {
 
 extension EntryController {
   private func clear() {
+    nextTask?.cancel()
     plainEntry = nil
     filledEntry = nil
     comparison = nil
