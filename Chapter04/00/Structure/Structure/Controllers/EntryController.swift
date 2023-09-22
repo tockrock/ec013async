@@ -15,6 +15,10 @@ extension EntryController {
     Task {
       let plainNumber = await plain.randomNumber()
       plainEntry = Entry(number: plainNumber)
+      
+      let filledNumber = await filled.randomNumber()
+      filledEntry = Entry(number: filledNumber, isFilled: true)
+      comparison = Comparison(plainNumber, filledNumber)
     }
   }
 }
