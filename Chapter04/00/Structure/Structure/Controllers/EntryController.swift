@@ -14,12 +14,12 @@ extension EntryController {
   func nextPair() {
     clear()
     Task {
-      let plainNumber = await plain.randomNumber()
-      plainEntry = Entry(number: plainNumber)
+      async let plainNumber = plain.randomNumber()
+      plainEntry = Entry(number: await plainNumber)
       
       let filledNumber = await filled.randomNumber()
       filledEntry = Entry(number: filledNumber, isFilled: true)
-      comparison = Comparison(plainNumber, filledNumber)
+      comparison = Comparison(await plainNumber, filledNumber)
     }
   }
 }
