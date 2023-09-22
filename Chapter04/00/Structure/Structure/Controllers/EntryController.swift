@@ -19,10 +19,10 @@ extension EntryController {
       async let plainNumber = plain.randomNumber()
       async let filledNumber = filled.randomNumber()
 
-      comparison = Comparison(await plainNumber, await filledNumber)
+      comparison = Comparison(try await plainNumber, try await filledNumber)
       if Task.isCancelled { print("nextTask is cancelled") }
-      filledEntry = Entry(number: await filledNumber, isFilled: true)
-      plainEntry = Entry(number: await plainNumber)
+      filledEntry = Entry(number: try await filledNumber, isFilled: true)
+      plainEntry = Entry(number: try await plainNumber)
     }
   }
 }
