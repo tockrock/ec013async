@@ -9,20 +9,23 @@ class EntryController: ObservableObject {
   private let plain = NumberVendor(delay: 2.0)
   private let filled = NumberVendor(delay: 1.5)
   
-  private var nextTask: Task<Void, Never>?
+  private var nextTask: Task<Void, Error>?
 }
 
 extension EntryController {
   func nextPair() {
     clear()
     nextTask = Task {
-      async let plainNumber = plain.randomNumber()
-      async let filledNumber = filled.randomNumber()
-
-      comparison = Comparison(try await plainNumber, try await filledNumber)
-      if Task.isCancelled { print("nextTask is cancelled") }
-      filledEntry = Entry(number: try await filledNumber, isFilled: true)
-      plainEntry = Entry(number: try await plainNumber)
+      do {
+        async let plainNumber = plain.randomNumber()
+        async let filledNumber = filled.randomNumber()
+        
+        comparison = Comparison(try await plainNumber, try await filledNumber)
+        filledEntry = Entry(number: try await filledNumber, isFilled: true)
+        plainEntry = Entry(number: try await plainNumber)
+      } catch {
+        print(error)
+      }
     }
   }
 }
