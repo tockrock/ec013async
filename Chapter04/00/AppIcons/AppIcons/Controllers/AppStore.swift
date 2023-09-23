@@ -38,9 +38,9 @@ extension AppStore {
 extension AppStore {
   private func retrieveImages() async throws {
     for app in apps {
-      let (imageData, _) = try await ephemeralURLSession
+      async let (imageData, _) = ephemeralURLSession
         .data(from: app.artworkURL)
-      let image = UIImage(data: imageData)
+      let image = UIImage(data: try await imageData)
       publish(image: image,
               forAppNamed: app.name)
     }
