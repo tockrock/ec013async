@@ -18,6 +18,7 @@ extension AppStore {
           .decode(SearchResults.self, from: data)
         apps = searchResults.apps
         print(searchResults)
+        try await retrieveImages()
       } catch {
         print(error)
       }
@@ -30,6 +31,18 @@ extension AppStore {
                        forAppNamed name: String) {
     if let image {
       images[name] = image
+    }
+  }
+}
+
+extension AppStore {
+  private func retrieveImages() async throws {
+    for app in apps {
+      let (imageData, _) = try await ephemeralURLSession
+        .data(from: app.artworkURL)
+      let image = UIImage(data: imageData)
+      publish(image: image,
+              forAppNamed: app.name)
     }
   }
 }
