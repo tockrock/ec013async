@@ -10,6 +10,14 @@ class AppStore: ObservableObject {
 
 extension AppStore {
   func search(for rawText: String)  {
+    Task {
+      do {
+        let (data, _) = try await ephemeralURLSession
+          .data(from: url(for: rawText))
+      } catch {
+        print(error)
+      }
+    }
   }
 }
 
