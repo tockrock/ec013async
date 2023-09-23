@@ -14,6 +14,10 @@ extension AppStore {
       do {
         let (data, _) = try await ephemeralURLSession
           .data(from: url(for: rawText))
+        let searchResults = try JSONDecoder()
+          .decode(SearchResults.self, from: data)
+        apps = searchResults.apps
+        print(searchResults)
       } catch {
         print(error)
       }
