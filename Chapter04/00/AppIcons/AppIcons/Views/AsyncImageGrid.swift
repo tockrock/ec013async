@@ -11,7 +11,20 @@ extension AsyncImageGrid: View {
     ScrollView {
       LazyVGrid(columns: columns) {
         ForEach(apps) { app in
-          AsyncImage(url: app.artworkURL)
+          AsyncImage(url: app.artworkURL) { image in
+            image
+              .resizable()
+              .scaledToFill()
+          } placeholder: {
+            ZStack {
+              Image(systemName: "square.fill")
+                .resizable()
+                .scaledToFill()
+                .foregroundColor(.secondary.opacity(0.2))
+              ProgressView()
+                .progressViewStyle(.circular)
+            }
+          }
         }
       }
     }
