@@ -37,7 +37,7 @@ extension AppStore {
 
 extension AppStore {
   private func retrieveImages() async throws {
-    await withThrowingTaskGroup(of: (UIImage?, String).self) { group in
+    try await withThrowingTaskGroup(of: (UIImage?, String).self) { group in
       for app in apps {
         group.addTask {
           async let (imageData, _) = ephemeralURLSession
@@ -46,8 +46,9 @@ extension AppStore {
           return (image, app.name)
         }
       }
-//      await self.publish(image: image,
-//              forAppNamed: app.name)
+      for try await (image, name) in group {
+        publish(image: image, forAppNamed: name)
+      }
     }
   }
 }
