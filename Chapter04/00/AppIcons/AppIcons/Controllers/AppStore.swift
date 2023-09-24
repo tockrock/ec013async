@@ -6,11 +6,16 @@ import UIKit.UIImage
 class AppStore: ObservableObject {
   @Published private(set) var apps = [AppInfo]()
   @Published private(set) var images = [String: UIImage]()
+  private var downloadTask: Task<Void, Never>? {
+    willSet {
+      resetForNewSearch()
+    }
+  }
 }
 
 extension AppStore {
   func search(for rawText: String)  {
-    Task {
+    downloadTask = Task {
       do {
         let (data, _) = try await ephemeralURLSession
           .data(from: url(for: rawText))
@@ -50,5 +55,13 @@ extension AppStore {
         publish(image: image, forAppNamed: name)
       }
     }
+  }
+}
+
+extension AppStore {
+  private func resetForNewSearch() {
+    downloadTask?.cancel()
+    apps.removeAll()
+    images.removeAll()
   }
 }
