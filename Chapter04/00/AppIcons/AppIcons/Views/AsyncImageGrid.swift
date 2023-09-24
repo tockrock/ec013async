@@ -10,6 +10,9 @@ extension AsyncImageGrid: View {
   var body: some View {
     ScrollView {
       LazyVGrid(columns: columns) {
+        ForEach(apps) { app in
+          AsyncImage(url: app.artworkURL)
+        }
       }
     }
   }
