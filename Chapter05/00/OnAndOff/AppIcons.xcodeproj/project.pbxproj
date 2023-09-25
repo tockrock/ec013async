@@ -60,7 +60,9 @@
 				62E71CF1296515AC0099CC8D /* AppIcons */,
 				62E71CF0296515AC0099CC8D /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		62E71CF0296515AC0099CC8D /* Products */ = {
 			isa = PBXGroup;
