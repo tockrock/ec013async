@@ -6,7 +6,11 @@ import UIKit.UIImage
 class AppStore: ObservableObject {
   @Published private(set) var apps = [AppInfo]()
   @Published private(set) var images = [String: UIImage]()
-  private var downloadTask: Task<Void, Never>?
+  private var downloadTask: Task<Void, Never>? {
+    willSet {
+      resetForNextSearch()
+    }
+  }
 }
 
 extension AppStore {
