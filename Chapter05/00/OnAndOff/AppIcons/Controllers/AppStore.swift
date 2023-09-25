@@ -29,6 +29,7 @@ extension AppStore {
 }
 
 extension AppStore {
+  nonisolated
   private func retrieveApps(for rawText: String)
   async throws -> [AppInfo] {
     let (data, _)
