@@ -6,16 +6,13 @@ import UIKit.UIImage
 class AppStore: ObservableObject {
   @Published private(set) var apps = [AppInfo]()
   @Published private(set) var images = [String: UIImage]()
-  private var downloadTask: Task<Void, Never>? {
-    willSet {
-      resetForNextSearch()
-    }
-  }
+  private var downloadTask: Task<Void, Never>?
+  private var monitor: ProgressMonitor?
 }
 
 extension AppStore {
   func search(for rawText: String)  {
-    resetForNextSearch()
+    resetSearch(for: rawText)
     downloadTask = Task {
       do {
         apps = try await retrieveApps(for: rawText)
@@ -72,9 +69,10 @@ extension AppStore {
 }
 
 extension AppStore {
-  private func resetForNextSearch() {
+  private func resetSearch(for rawText: String) {
     downloadTask?.cancel()
     apps.removeAll()
     images.removeAll()
+    monitor = ProgressMonitor(for: rawText)
   }
 }
