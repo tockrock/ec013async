@@ -14,11 +14,18 @@ class AppStore: ObservableObject {
 }
 
 extension AppStore {
+  private func updateApps(with apps: [AppInfo]) {
+    self.apps = apps
+  }
+}
+
+extension AppStore {
   func search(for rawText: String)  {
     resetForNextSearch()
     downloadTask = Task.detached {
       do {
-        self.apps = try await self.retrieveApps(for: rawText)
+        let apps = try await self.retrieveApps(for: rawText)
+        await self.updateApps(with: apps)
         print(await self.apps)
         try await self.retrieveImages()
       } catch {
