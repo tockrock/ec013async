@@ -16,11 +16,11 @@ class AppStore: ObservableObject {
 extension AppStore {
   func search(for rawText: String)  {
     resetForNextSearch()
-    downloadTask = Task {
+    downloadTask = Task.detached {
       do {
-        apps = try await retrieveApps(for: rawText)
-        print(apps)
-        try await retrieveImages()
+        self.apps = try await self.retrieveApps(for: rawText)
+        print(await self.apps)
+        try await self.retrieveImages()
       } catch {
         print(error.localizedDescription)
       }
