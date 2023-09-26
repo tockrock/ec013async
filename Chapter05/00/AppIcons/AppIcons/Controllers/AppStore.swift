@@ -41,6 +41,7 @@ extension AppStore {
 extension AppStore {
   private func retrieveImages() async throws {
     guard let monitor else { return }
+    print("\(monitor.searchTerm) has \(await monitor.total) results")
     try await withThrowingTaskGroup(of: (UIImage?,
                                      String).self) { group in
       for app in apps {
