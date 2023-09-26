@@ -1,4 +1,4 @@
-class ProgressMonitor {
+actor ProgressMonitor {
     let searchTerm: String
     private(set) var total = 0
     private(set) var downloaded = 0

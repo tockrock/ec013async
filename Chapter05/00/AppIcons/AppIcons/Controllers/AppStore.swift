@@ -16,7 +16,7 @@ extension AppStore {
     downloadTask = Task {
       do {
         apps = try await retrieveApps(for: rawText)
-        monitor?.reset(total: apps.count)
+        await monitor?.reset(total: apps.count)
         try await retrieveImages()
       } catch {
         print(error.localizedDescription)
@@ -49,7 +49,7 @@ extension AppStore {
           = try await ephemeralURLSession
             .data(from: app.artworkURL)
           let image = UIImage(data: try await imageData)
-          monitor.registerImageDownload()
+          await monitor.registerImageDownload()
           return (image, app.name)
         }
       }
