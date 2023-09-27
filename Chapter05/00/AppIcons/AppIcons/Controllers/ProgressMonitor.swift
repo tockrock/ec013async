@@ -14,10 +14,8 @@ extension ProgressMonitor {
         downloaded = 0
     }
     
-    func registerImageDownload(for appName: String) async {
+    func registerImageDownload(for appName: String)  {
         downloaded += 1
-        let dl = downloaded
-        try? await Task.sleep(for: .seconds(0.001))
-        print("\(dl) / \(total) = \(appName)")
+        print("\(downloaded) / \(total) = \(appName)")
     }
 }
