@@ -41,7 +41,6 @@ extension AppStore {
 extension AppStore {
   private func retrieveImages() async throws {
     guard let monitor else { return }
-    print("\(monitor.searchTerm) has \(await monitor.total) results")
     try await withThrowingTaskGroup(of: (UIImage?,
                                      String).self) { group in
       for app in apps {
@@ -49,10 +48,8 @@ extension AppStore {
           async let (imageData, _)
           = try await ephemeralURLSession
             .data(from: app.artworkURL)
-          print("Requesting image for \(app.name)")
           let image = UIImage(data: try await imageData)
           await monitor.registerImageDownload(for: app.name)
-          print("\t...\(app.name)\n")
           return (image, app.name)
         }
       }
