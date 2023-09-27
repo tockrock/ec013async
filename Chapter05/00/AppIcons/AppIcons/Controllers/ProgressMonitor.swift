@@ -1,3 +1,5 @@
+import Foundation
+
 actor ProgressMonitor {
     let searchTerm: String
     private(set) var total = 0
@@ -14,8 +16,10 @@ extension ProgressMonitor {
         downloaded = 0
     }
     
-    func registerImageDownload() {
+    func registerImageDownload(for appName: String) {
         downloaded += 1
+        print("\n \(appName) ...")
+        Thread.sleep(forTimeInterval: 1)
         print("downloaded \(downloaded)/\(total)")
     }
 }

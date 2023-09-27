@@ -49,8 +49,10 @@ extension AppStore {
           async let (imageData, _)
           = try await ephemeralURLSession
             .data(from: app.artworkURL)
+          print("Requesting image for \(app.name)")
           let image = UIImage(data: try await imageData)
-          await monitor.registerImageDownload()
+          await monitor.registerImageDownload(for: app.name)
+          print("\t...\(app.name)\n")
           return (image, app.name)
         }
       }
