@@ -12,6 +12,12 @@ extension ProgressMonitor {
     func reset(total: Int) {
         self.total = total
         downloaded = 0
+        seporator()
+    }
+    
+    nonisolated
+    func seporator() {
+        print("=====")
     }
     
     func registerImageDownload(for appName: String)  {
