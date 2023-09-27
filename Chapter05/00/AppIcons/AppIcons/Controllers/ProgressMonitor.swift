@@ -16,6 +16,12 @@ extension ProgressMonitor {
     
     func registerImageDownload(for appName: String)  {
         downloaded += 1
+        status(for: appName)
+    }
+    
+    func status(for appName: String) {
         print("\(downloaded) / \(total) = \(appName)")
     }
 }
+
+
