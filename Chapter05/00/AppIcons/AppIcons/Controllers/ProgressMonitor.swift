@@ -12,7 +12,16 @@ extension ProgressMonitor {
     func reset(total: Int) {
         self.total = total
         downloaded = 0
-        seporator()
+        header()
+    }
+    
+    nonisolated
+    func header() {
+        Task {
+            seporator()
+            print("\(searchTerm) has \(await total) results")
+            seporator()
+        }
     }
     
     nonisolated
