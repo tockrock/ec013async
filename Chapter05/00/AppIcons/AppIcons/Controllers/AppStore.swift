@@ -46,7 +46,7 @@ extension AppStore {
     try await withThrowingTaskGroup(of: (UIImage?,
                                      String).self) { group in
       for app in apps {
-        group.addTask {
+        group.addTask { @ProgressMonitor in
           async let (imageData, _)
           = try await ephemeralURLSession
             .data(from: app.artworkURL)
@@ -57,8 +57,7 @@ extension AppStore {
         }
       }
       for try await (image, name) in group {
-        publish(image: image,
-                forAppNamed: name)
+        publish(image: image, forAppNamed: name)
       }
       isUpdating = false
     }

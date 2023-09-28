@@ -11,7 +11,7 @@ extension MainView: View {
       SearchField(appStore: appStore,
                   searchTerm: $searchTerm)
       if appStore.isUpdating {
-        ProgressView(value: Double(appStore.downloadImages),
+        ProgressView(value: Double(appStore.downloadedImages),
                      total: Double(appStore.totalImages))
       }
       IconGrid(appStore: appStore)
