@@ -54,11 +54,14 @@ extension AppStore {
             .data(from: app.artworkURL)
           let image = UIImage(data: try await imageData)
           await monitor.registerImageDownload(for: app.name)
+          let downloadedImages = await monitor.downloaded
+          await MainActor.run {
+            self.downloadedImages = downloadedImages
+          }
           return (image, app.name)
         }
       }
       for try await (image, name) in group {
-        downloadedImages = await monitor.downloaded
         publish(image: image,
                 forAppNamed: name)
       }
