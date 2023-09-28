@@ -9,7 +9,6 @@ class AppStore: ObservableObject {
   @Published private(set) var isUpdating = false
   @Published private(set) var downloadedImages = 0
   private var downloadTask: Task<Void, Never>?
-  private var monitor: ProgressMonitor?
 }
 
 extension AppStore {
@@ -18,9 +17,9 @@ extension AppStore {
     downloadTask = Task {
       do {
         apps = try await retrieveApps(for: rawText)
-        await monitor?.reset(total: apps.count)
+        await ProgressMonitor.shared.reset(total: apps.count, for: rawText)
         try await retrieveImages()
-        await monitor?.header()
+        await ProgressMonitor.shared.header()
       } catch {
         isUpdating = false
         print(error.localizedDescription)
@@ -44,7 +43,6 @@ extension AppStore {
 
 extension AppStore {
   private func retrieveImages() async throws {
-    guard let monitor else { return }
     try await withThrowingTaskGroup(of: (UIImage?,
                                      String).self) { group in
       for app in apps {
@@ -53,8 +51,8 @@ extension AppStore {
           = try await ephemeralURLSession
             .data(from: app.artworkURL)
           let image = UIImage(data: try await imageData)
-          await monitor.registerImageDownload(for: app.name)
-          await self.setDownloadedImages(to: await monitor.downloaded)
+          await ProgressMonitor.shared.registerImageDownload(for: app.name)
+          await self.setDownloadedImages(to: await ProgressMonitor.shared.downloaded)
           return (image, app.name)
         }
       }
@@ -81,7 +79,6 @@ extension AppStore {
     downloadTask?.cancel()
     apps.removeAll()
     images.removeAll()
-    monitor = ProgressMonitor(for: rawText)
     downloadedImages = 0
   }
 }
