@@ -15,13 +15,10 @@ extension ProgressMonitor {
         header()
     }
     
-    nonisolated
     func header() {
-        Task {
-            seporator()
-            print("\(searchTerm) has \(await total) results")
-            seporator()
-        }
+        seporator()
+        print("\(searchTerm) has \(total) results")
+        seporator()
     }
     
     nonisolated

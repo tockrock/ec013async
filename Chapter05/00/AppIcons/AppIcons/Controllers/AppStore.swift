@@ -18,7 +18,7 @@ extension AppStore {
         apps = try await retrieveApps(for: rawText)
         await monitor?.reset(total: apps.count)
         try await retrieveImages()
-        monitor?.header()
+        await monitor?.header()
       } catch {
         print(error.localizedDescription)
       }
