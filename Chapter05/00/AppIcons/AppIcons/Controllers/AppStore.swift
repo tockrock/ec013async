@@ -6,6 +6,7 @@ import UIKit.UIImage
 class AppStore: ObservableObject {
   @Published private(set) var apps = [AppInfo]()
   @Published private(set) var images = [String: UIImage]()
+  @Published private(set) var isUpdating = false
   private var downloadTask: Task<Void, Never>?
   private var monitor: ProgressMonitor?
 }
@@ -20,6 +21,7 @@ extension AppStore {
         try await retrieveImages()
         await monitor?.header()
       } catch {
+        isUpdating = false
         print(error.localizedDescription)
       }
     }
@@ -27,8 +29,8 @@ extension AppStore {
 }
 
 extension AppStore {
-  private func retrieveApps(for rawText: String)
-  async throws -> [AppInfo] {
+  private func retrieveApps(for rawText: String) async throws -> [AppInfo] {
+    isUpdating = true
     let (data, _)
     = try await ephemeralURLSession
       .data(from: url(for: rawText))
@@ -58,6 +60,7 @@ extension AppStore {
         publish(image: image,
                 forAppNamed: name)
       }
+      isUpdating = false
     }
   }
 }
