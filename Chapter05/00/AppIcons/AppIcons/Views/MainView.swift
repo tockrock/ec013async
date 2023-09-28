@@ -9,7 +9,7 @@ extension MainView: View {
   var body: some View {
     VStack {
       SearchField(appStore: appStore,
-      searchTerm: $searchTerm)
+                  searchTerm: $searchTerm)
       IconGrid(appStore: appStore)
     }
     .padding()
