@@ -17,9 +17,8 @@ extension AppStore {
     downloadTask = Task {
       do {
         apps = try await retrieveApps(for: rawText)
-        await ProgressMonitor.shared.reset(total: apps.count, for: rawText)
+        await ProgressMonitor.shared.reset()
         try await retrieveImages()
-        await ProgressMonitor.shared.header()
       } catch {
         isUpdating = false
         print(error.localizedDescription)
@@ -51,8 +50,8 @@ extension AppStore {
           = try await ephemeralURLSession
             .data(from: app.artworkURL)
           let image = UIImage(data: try await imageData)
-          await ProgressMonitor.shared.registerImageDownload(for: app.name)
-          await self.setDownloadedImages(to: await ProgressMonitor.shared.downloaded)
+          let numberDownloaded = await ProgressMonitor.shared.registerImageDownload()
+          await self.setDownloadedImages(to: numberDownloaded)
           return (image, app.name)
         }
       }
