@@ -7,6 +7,7 @@ class AppStore: ObservableObject {
   @Published private(set) var apps = [AppInfo]()
   @Published private(set) var images = [String: UIImage]()
   @Published private(set) var isUpdating = false
+  @Published private(set) var downloadedImages = 0
   private var downloadTask: Task<Void, Never>?
   private var monitor: ProgressMonitor?
 }
@@ -57,6 +58,7 @@ extension AppStore {
         }
       }
       for try await (image, name) in group {
+        downloadedImages = await monitor.downloaded
         publish(image: image,
                 forAppNamed: name)
       }
@@ -80,6 +82,7 @@ extension AppStore {
     apps.removeAll()
     images.removeAll()
     monitor = ProgressMonitor(for: rawText)
+    downloadedImages = 0
   }
 }
 
