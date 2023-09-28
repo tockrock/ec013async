@@ -1,5 +1,5 @@
 actor ProgressMonitor {
-    let searchTerm: String
+    private(set) var searchTerm: String
     private(set) var total = 0
     private(set) var downloaded = 0
     
@@ -9,9 +9,10 @@ actor ProgressMonitor {
 }
 
 extension ProgressMonitor {
-    func reset(total: Int) {
+    func reset(total: Int, for searchTerm: String) {
         self.total = total
         downloaded = 0
+        self.searchTerm = searchTerm
         header()
     }
     
