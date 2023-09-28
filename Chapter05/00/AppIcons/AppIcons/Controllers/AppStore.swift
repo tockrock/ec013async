@@ -82,3 +82,9 @@ extension AppStore {
     monitor = ProgressMonitor(for: rawText)
   }
 }
+
+extension AppStore {
+  var totalImages: Int {
+    apps.count
+  }
+}
