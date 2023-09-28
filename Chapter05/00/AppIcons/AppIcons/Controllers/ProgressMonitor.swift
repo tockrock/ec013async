@@ -1,11 +1,11 @@
+@globalActor
 actor ProgressMonitor {
-    private(set) var searchTerm: String
+    static let shared = ProgressMonitor()
+    private(set) var searchTerm = ""
     private(set) var total = 0
     private(set) var downloaded = 0
     
-    init(for searchTerm: String) {
-        self.searchTerm = searchTerm
-    }
+    private init() {}
 }
 
 extension ProgressMonitor {
