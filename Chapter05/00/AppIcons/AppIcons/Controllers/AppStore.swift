@@ -54,10 +54,7 @@ extension AppStore {
             .data(from: app.artworkURL)
           let image = UIImage(data: try await imageData)
           await monitor.registerImageDownload(for: app.name)
-          let downloadedImages = await monitor.downloaded
-          await MainActor.run {
-            self.downloadedImages = downloadedImages
-          }
+          await self.setDownloadedImages(to: await monitor.downloaded)
           return (image, app.name)
         }
       }
@@ -92,5 +89,11 @@ extension AppStore {
 extension AppStore {
   var totalImages: Int {
     apps.count
+  }
+}
+
+extension AppStore {
+  func setDownloadedImages(to downloadedImages: Int) {
+    self.downloadedImages = downloadedImages
   }
 }
