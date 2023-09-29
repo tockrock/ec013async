@@ -16,9 +16,11 @@ extension AppStore {
     resetSearch(for: rawText)
     downloadTask = Task {
       do {
-        apps = try await retrieveApps(for: rawText)
-        await ProgressMonitor.shared.reset()
-        try await retrieveImages()
+        try await Tracker.$searchTerm.withValue(rawText) {
+          apps = try await retrieveApps(for: rawText)
+          await ProgressMonitor.shared.reset()
+          try await retrieveImages()
+        }
       } catch {
         isUpdating = false
         print(error.localizedDescription)
