@@ -16,11 +16,13 @@ distributed actor Searcher {
 }
 
 extension Searcher {
-  func search(for searchTerm: String) {
-    // let the other searchers know abou our
+  distributed func search(for searchTerm: String) async throws {
+    for otherSearcher in await appStore.otherSearchers {
+      try await otherSearcher.receive(searchTerm, from: name)
+    }
   }
   
-  func receive(_ searchTerm: String) {
+  distributed func receive(_ searchTerm: String, from searcherName: String) {
     // update our list of current searches
   }
 }
