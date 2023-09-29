@@ -14,6 +14,7 @@ extension ProgressMonitor {
     @discardableResult
     func registerImageDownload() -> Int {
         downloaded += 1
+        print("Downloaded \(downloaded) in \(Tracker.searchTerm) search")
         return downloaded
     }
 }
