@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		027C10282AC6DAA10081CFA2 /* BonjourDemoActorSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 027C10272AC6DAA10081CFA2 /* BonjourDemoActorSystem */; };
 		6224B2A9299A6B50008546A1 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6224B2A8299A6B50008546A1 /* Searcher.swift */; };
 		622E481D29887ADA007126DB /* ProgressMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622E481C29887ADA007126DB /* ProgressMonitor.swift */; };
 		627D655D299EE25000B99A72 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627D655C299EE25000B99A72 /* Tracker.swift */; };
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				027C10282AC6DAA10081CFA2 /* BonjourDemoActorSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +150,9 @@
 			dependencies = (
 			);
 			name = AppIcons;
+			packageProductDependencies = (
+				027C10272AC6DAA10081CFA2 /* BonjourDemoActorSystem */,
+			);
 			productName = AppIcons;
 			productReference = 62E71CEF296515AC0099CC8D /* AppIcons.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +181,9 @@
 				Base,
 			);
 			mainGroup = 62E71CE6296515AC0099CC8D;
+			packageReferences = (
+				027C10262AC6DAA10081CFA2 /* XCLocalSwiftPackageReference "../../BonjourDemoActorSystem" */,
+			);
 			productRefGroup = 62E71CF0296515AC0099CC8D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -415,6 +423,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		027C10262AC6DAA10081CFA2 /* XCLocalSwiftPackageReference "../../BonjourDemoActorSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../BonjourDemoActorSystem;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		027C10272AC6DAA10081CFA2 /* BonjourDemoActorSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BonjourDemoActorSystem;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 62E71CE7296515AC0099CC8D /* Project object */;
 }

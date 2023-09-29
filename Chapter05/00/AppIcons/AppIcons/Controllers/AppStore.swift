@@ -17,24 +17,7 @@ class AppStore: ObservableObject {
 }
 
 extension AppStore {
-  nonisolated
-  func setSeacher(with name: String) {
-    Task {
-      let searcher = Searcher(name: name,
-                              appStore: self,
-                              actorSystem: LocalTestingDistributedActorSystem())
-      await MainActor.run {
-        self.searcher = searcher
-      }
-    }
-  }
-}
-
-extension AppStore {
   func search(for rawText: String)  {
-    if let _ = self.searcher {
-      setSeacher(with: UIDevice.current.name)
-    }
     resetSearch(for: rawText)
     downloadTask = Task {
       do {
