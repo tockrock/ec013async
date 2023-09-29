@@ -1,11 +1,17 @@
-actor Searcher {
+import Distributed
+
+distributed actor Searcher {
+    typealias ActorSystem = LocalTestingDistributedActorSystem
+    
     let name: String
     let appStore: AppStore
     
     init(name: String,
-         appStore: AppStore) {
+         appStore: AppStore,
+         actorSystem: ActorSystem) {
         self.name = name
         self.appStore = appStore
+        self.actorSystem = actorSystem
     }
 }
 
