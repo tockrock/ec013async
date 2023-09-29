@@ -1,7 +1,8 @@
 import Distributed
+import BonjourDemoActorSystem
 
 distributed actor Searcher {
-  typealias ActorSystem = LocalTestingDistributedActorSystem
+  typealias ActorSystem = SampleLocalNetworkActorSystem
   
   let name: String
   let appStore: AppStore

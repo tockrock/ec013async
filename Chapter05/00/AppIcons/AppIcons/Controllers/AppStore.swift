@@ -14,6 +14,30 @@ class AppStore: ObservableObject {
   @Published private(set) var otherSearchers: [Searcher] = []
   @Published private(set) var appSearchers: [String: String] = [:]
   private var downloadTask: Task<Void, Never>?
+  
+  init() {
+    searcher = Searcher(name: UIDevice.current.name,
+                        appStore: self,
+                        actorSystem: bonjourActorSystem)
+    guard let searcher else { return }
+    bonjourActorSystem.receptionist.checkIn(searcher,
+                                            tag: "App Store Searcher")
+    Task {
+      try await startLookingForOtherSearchers()
+    }
+  }
+}
+
+extension AppStore {
+  func startLookingForOtherSearchers() async throws {
+    let listing = await bonjourActorSystem.receptionist
+      .listing(of: Searcher.self, tag: "App Store Searcher")
+    guard let searcher = self.searcher else { return }
+    
+    for try await otherSearcher in listing where otherSearcher.id != searcher.id {
+      otherSearchers.append(otherSearcher)
+    }
+  }
 }
 
 extension AppStore {
