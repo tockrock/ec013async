@@ -24,6 +24,6 @@ extension Searcher {
   }
   
   distributed func receive(_ searchTerm: String, from searcherName: String) {
-    // update our list of current searches
+    await appStore.addSearch(for: searchTerm, by: searcherName)
   }
 }

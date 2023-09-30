@@ -45,6 +45,7 @@ extension AppStore {
     resetSearch(for: rawText)
     downloadTask = Task {
       do {
+        try await searcher?.search(for: rawText)
         try await Tracker.$searchTerm.withValue(rawText) {
           apps = try await retrieveApps(for: rawText)
           try await Tracker.$totalImages.withValue(apps.count) {
@@ -57,6 +58,12 @@ extension AppStore {
         print(error.localizedDescription)
       }
     }
+  }
+}
+
+extension AppStore {
+  func addSearch(for searchTerm: String, by searcherName: String) {
+    appSearchers[searcherName] = searchTerm
   }
 }
 
