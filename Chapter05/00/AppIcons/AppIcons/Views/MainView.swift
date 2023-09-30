@@ -15,6 +15,17 @@ extension MainView: View {
                      total: Double(appStore.totalImages))
       }
       IconGrid(appStore: appStore)
+      if !appStore.appSearchers.isEmpty {
+        List(appStore.appSearchers.sorted(by: >),
+             id: \.key) { key, value in
+          Text("\(value) (\(key))")
+            .onTapGesture {
+              searchTerm = value
+              appStore.search(for: searchTerm)
+            }
+          
+        }
+      }
     }
     .padding()
   }

@@ -23,7 +23,7 @@ extension Searcher {
     }
   }
   
-  distributed func receive(_ searchTerm: String, from searcherName: String) {
+  distributed func receive(_ searchTerm: String, from searcherName: String) async throws {
     await appStore.addSearch(for: searchTerm, by: searcherName)
   }
 }
